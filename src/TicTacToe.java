@@ -1,18 +1,29 @@
+// Lab 10: Tic Tac Toe
+// A two-player console Tic Tac Toe game.
 import java.util.Scanner;
 
 public class TicTacToe {
 
+    // Board size constants and the game board
     private static final int ROWS = 3;
     private static final int COLS = 3;
     private static String[][] board = new String[ROWS][COLS];
 
     public static void main(String[] args) {
+        // Pseudocode:
+        // 1. Clear the board and set player to X
+        // 2. Show the board and ask the current player for a row and col (1-3)
+        // 3. Convert input to indices (0-2) and loop until the move is valid
+        // 4. Record the move and increment the move counter
+        // 5. After enough moves, check for a win, then a tie
+        // 6. If the game is over, ask to play again; otherwise toggle the player
         Scanner in = new Scanner(System.in);
         boolean playAgain = true;
 
         System.out.println("Welcome to Tic Tac Toe!");
 
         while (playAgain) {
+            // Start a new game
             clearBoard();
             String player = "X";
             int moveCount = 0;
@@ -61,6 +72,7 @@ public class TicTacToe {
         System.out.println("Thanks for playing!");
     }
 
+    // Sets every cell on the board to a single space
     private static void clearBoard() {
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
@@ -69,6 +81,7 @@ public class TicTacToe {
         }
     }
 
+    // Prints the current board to the console
     private static void display() {
         System.out.println();
         for (int r = 0; r < ROWS; r++) {
@@ -86,6 +99,7 @@ public class TicTacToe {
         System.out.println();
     }
 
+    // Returns true if the cell at row, col is empty and in bounds
     private static boolean isValidMove(int row, int col) {
         boolean valid = false;
         if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
@@ -96,6 +110,7 @@ public class TicTacToe {
         return valid;
     }
 
+    // Returns true if the given player has any winning line
     private static boolean isWin(String player) {
         if (isRowWin(player)) {
             return true;
@@ -109,6 +124,7 @@ public class TicTacToe {
         return false;
     }
 
+    // Checks every row for a win by the given player
     private static boolean isRowWin(String player) {
         for (int r = 0; r < ROWS; r++) {
             if (board[r][0].equals(player) && board[r][1].equals(player) && board[r][2].equals(player)) {
@@ -118,6 +134,7 @@ public class TicTacToe {
         return false;
     }
 
+    // Checks every column for a win by the given player
     private static boolean isColWin(String player) {
         for (int c = 0; c < COLS; c++) {
             if (board[0][c].equals(player) && board[1][c].equals(player) && board[2][c].equals(player)) {
@@ -127,6 +144,7 @@ public class TicTacToe {
         return false;
     }
 
+    // Checks both diagonals for a win by the given player
     private static boolean isDiagnalWin(String player) {
         if (board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player)) {
             return true;
@@ -137,6 +155,7 @@ public class TicTacToe {
         return false;
     }
 
+    // Returns true if the board is full or every win line is blocked
     private static boolean isTie() {
         boolean full = true;
         for (int r = 0; r < ROWS; r++) {
@@ -169,6 +188,7 @@ public class TicTacToe {
         return true;
     }
 
+    // Returns true if the three cells contain at least one X and at least one O
     private static boolean vectorBlocked(String a, String b, String c) {
         boolean hasX = false;
         boolean hasO = false;
